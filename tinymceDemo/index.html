@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TinyMCE Image Editing Demo</title>
+</head>
+<body>
+    <h1>TinyMCE Image Editing Example</h1>
+    
+    <!-- Textarea that will be converted to TinyMCE editor -->
+    <textarea id="mytextarea" rows="10" cols="80">
+        <p>Add some content and images here</p>
+        <!-- <img> -->
+    </textarea>
+
+    <!-- Include TinyMCE from local directory -->
+    <script src="./tinymce.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js"></script> -->
+    
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            
+            // Plugins for image handling
+            plugins: 'image imagetools codesample link media table',
+            
+            // Toolbar with image editing options
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | codesample table media',
+            
+            // Enable image tools (crop, resize, etc.)
+            imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+            
+            // Enable image dimensions adjustment
+            image_dimensions: true,
+            
+            // Allow image upload (if needed)
+            automatic_uploads: true,
+            
+            // Configure image upload handler if needed
+            images_upload_handler: function (blobInfo, success, failure) {
+                // Handle image uploads here if needed
+                // For now, just return a placeholder
+                const blob = blobInfo.blob();
+                const reader = new FileReader();
+                reader.onload = function() {
+                    success(reader.result);
+                };
+                reader.readAsDataURL(blob);
+            }
+        });
+    </script>
+</body>
+</html>
